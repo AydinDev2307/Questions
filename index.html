@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Savol-Javob CRUD</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="container-h1">Savol-Javoblar</h1>
+      <div class="accordion" id="accordions"></div>
+      <div class="add-section">
+        <button id="addBtn">Savol qo‘shish</button>
+      </div>
+    </div>
+    <div class="modal" id="editModal">
+      <div class="modal-content">
+        <h2 id="modalTitle">Savol qo‘shish</h2>
+        <input type="text" id="questionInput" placeholder="Savolni kiriting" />
+        <textarea id="answerInput" placeholder="Javobni kiriting"></textarea>
+        <div class="modal-buttons">
+          <button id="saveBtn">Saqlash</button>
+          <button id="cancelBtn" class="cancel">Bekor qilish</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal none" id="deleteModal">
+      <div class="modal-content">
+        <h2>Haqiqatan o‘chirmoqchimisiz?</h2>
+        <div class="modal-buttons">
+          <button id="confirmDeleteBtn">Ha</button>
+          <button id="cancelDeleteBtn" class="cancel">Yo‘q</button>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
