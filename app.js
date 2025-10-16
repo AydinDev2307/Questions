@@ -59,31 +59,35 @@ addBtn.addEventListener('click', () => {
   editModal.style.display = 'flex';
 });
 
-// saveBtn.addEventListener('click', async () => {
-//   const title = questionInput.value.trim();
-//   const content = answerInput.value.trim();
-//   if (!title  !content) {
-//     alert("Iltimos, barcha maydonlarni to'ldiring!");
-//     return
-//    }
-//   try {
-//     let response;
-
-//     if (editingId) {
-//       response = await fetch('https://faq-crud.onrender.com/api/faqs${editingId}',
-//         {
-//           method: 'PUT',
-//           headers: { 'Content-Type': 'application/json' },
-//           body: JSON.stringify({ title, content }),
-//         }
-//       );
-//     } else {
-//       response = await fetch(
-//         'https://crud-nodejs-ixa1.onrender.com/api/posts',
-//         {
-//           method: 'POST',
-//           headers: { 'Content-Type': 'application/json' },
-//           body: JSON.stringify({ title, content }),
-//         }
-//       );
-//     }
+saveBtn.addEventListener('click', async () => {
+  const title = questionInput.value.trim();
+  const content = answerInput.value.trim();
+  if (!title && !content) {
+    alert("Iltimos, barcha maydonlarni to'ldiring!");
+    return;
+  }
+  try {
+    let response;
+  } catch {
+    console.log(error.message);
+  }
+  if (editingId) {
+    response = await fetch(
+      'https://faq-crud.onrender.com/api/faqs${editingId}',
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content }),
+      }
+    );
+  } else {
+    response = await fetch('https://faq-crud.onrender.com/api/faqs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, content }),
+    });
+  }
+});
+cancelBtn.addEventListener('click', () => {
+  editModal.style.display = 'none';
+});
