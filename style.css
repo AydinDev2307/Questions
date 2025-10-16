@@ -23,7 +23,7 @@ body {
   backdrop-filter: blur(8px);
   animation: fadeIn 1s ease;
 }
-.accordion{
+.accordion {
   width: 100%;
   min-height: 100px;
 }
@@ -167,10 +167,12 @@ body {
   font-size: 15px;
   color: white;
 }
-#saveBtn, #confirmDeleteBtn {
+#saveBtn,
+#confirmDeleteBtn {
   background-color: #38bdf8;
 }
-.cancel, #cancelDeleteBtn {
+.cancel,
+#cancelDeleteBtn {
   background-color: #ef4444;
 }
 .none {
@@ -186,7 +188,7 @@ body {
     transform: translateY(0);
   }
 }
-.question button{
+.question button {
   width: 100px;
   height: 30px;
   background-color: #0ea5e9;

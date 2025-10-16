@@ -91,3 +91,4 @@ saveBtn.addEventListener('click', async () => {
 cancelBtn.addEventListener('click', () => {
   editModal.style.display = 'none';
 });
+// ustoz quldan kelgani shu buldi juda kup xato chiqdi aniqlolmadim
