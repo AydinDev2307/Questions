@@ -54,7 +54,7 @@ async function addPost() {
         questionInput.value = '';
         answerInput.value = '';
         editModal.style.display = 'none';
-        alert('muvaffaqiyatli');
+        alert('Muvaffaqiyatli');
         getPosts();
       }
     } else {
@@ -72,7 +72,7 @@ async function addPost() {
         questionInput.value = '';
         answerInput.value = '';
         editModal.style.display = 'none';
-        alert('muvaffaqiyatli');
+        alert('Muvaffaqiyatli');
         saveBtn.textContent = 'Saqlash';
         getPosts();
         editingId = null;
@@ -95,12 +95,12 @@ async function deletePost(id) {
         method: 'DELETE',
       });
       if (del.ok) {
-        alert('muvaffaqiyatli');
+        alert('Muvaffaqiyatli');
         getPosts();
       }
     }
   } catch (error) {
-    alert('uchirish qilishda muammo yuzaga keldi...');
+    alert('Uchirishda muammo yuzaga keldi...');
   }
 }
 
