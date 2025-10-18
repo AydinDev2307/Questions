@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 body {
   background: linear-gradient(135deg, #0f172a, #1e293b);
   color: #e2e8f0;
@@ -13,6 +14,7 @@ body {
   align-items: flex-start;
   padding: 60px 20px;
 }
+
 .container {
   width: 85%;
   background: rgba(255, 255, 255, 0.03);
@@ -23,17 +25,20 @@ body {
   backdrop-filter: blur(8px);
   animation: fadeIn 1s ease;
 }
+
 .accordion {
   width: 100%;
   min-height: 100px;
 }
+
 .container-h1 {
   text-align: center;
   font-size: 2rem;
   color: #38bdf8;
   margin-bottom: 20px;
 }
-.box {
+
+.faq-item {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   margin-bottom: 12px;
@@ -41,10 +46,12 @@ body {
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
-.box:hover {
+
+.faq-item:hover {
   transform: translateY(-3px);
   border-color: #38bdf8;
 }
+
 .question {
   display: flex;
   justify-content: space-between;
@@ -53,57 +60,73 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
+
 .question h1 {
-  font-size: 24px;
+  font-size: 1.1rem;
   color: #f1f5f9;
+  flex: 1;
 }
+
 .answer {
   max-height: 0;
   overflow: hidden;
   transition: all 0.4s ease;
   padding: 0 20px;
+  background: rgba(0, 0, 0, 0.2);
 }
+
 .answer.show {
-  max-height: 200px;
+  max-height: 500px;
   padding: 15px 20px;
 }
+
 .answer h1 {
   color: #94a3b8;
   font-size: 0.95rem;
+  font-weight: 400;
 }
+
 .btn-group {
   display: flex;
   gap: 10px;
 }
+
 .btn-group button {
-  padding: 6px 12px;
+  padding: 8px 16px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
   color: #fff;
   transition: 0.3s;
+  font-size: 14px;
 }
-.edit {
+
+.edit-btn {
   background-color: #38bdf8;
 }
-.edit:hover {
+
+.edit-btn:hover {
   background-color: #0ea5e9;
 }
-.delete {
+
+.delete-btn {
   background-color: #ef4444;
 }
-.delete:hover {
+
+.delete-btn:hover {
   background-color: #dc2626;
 }
+
 .add-section {
   text-align: center;
   margin-top: 25px;
 }
+
 .add-section button {
   background-color: #38bdf8;
   border: none;
-  padding: 10px 22px;
+  padding: 12px 28px;
   font-size: 16px;
   color: #fff;
   border-radius: 8px;
@@ -111,73 +134,109 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
+
 .add-section button:hover {
   background-color: #0ea5e9;
+  transform: translateY(-2px);
 }
+
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.85);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 99;
 }
+
 .modal-content {
-  background: rgba(255, 255, 255, 0.05);
+  background: #1e293b;
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 14px;
-  width: 400px;
+  width: 90%;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  animation: fadeIn 0.4s ease;
+  gap: 15px;
+  animation: slideIn 0.3s ease;
 }
+
 .modal-content h2 {
   text-align: center;
   color: #38bdf8;
+  margin-bottom: 10px;
 }
+
 .modal-content input,
 .modal-content textarea {
   width: 100%;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   outline: none;
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 12px 14px;
   font-size: 14px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   color: white;
-  resize: none;
+  resize: vertical;
+  min-height: 45px;
 }
+
+.modal-content textarea {
+  min-height: 120px;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+  border-color: #38bdf8;
+}
+
 .modal-buttons {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   margin-top: 10px;
 }
+
 .modal-buttons button {
-  padding: 8px 20px;
+  flex: 1;
+  padding: 10px 20px;
   border: none;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
   color: white;
+  transition: 0.3s;
 }
-#saveBtn,
-#confirmDeleteBtn {
+
+#saveBtn {
   background-color: #38bdf8;
 }
-.cancel,
-#cancelDeleteBtn {
+
+#saveBtn:hover {
+  background-color: #0ea5e9;
+}
+
+#cancelBtn {
   background-color: #ef4444;
 }
-.none {
-  display: none;
+
+#cancelBtn:hover {
+  background-color: #dc2626;
 }
+
+.empty-message {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #64748b;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -188,13 +247,14 @@ body {
     transform: translateY(0);
   }
 }
-.question button {
-  width: 100px;
-  height: 30px;
-  background-color: #0ea5e9;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

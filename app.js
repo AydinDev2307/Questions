@@ -1,94 +1,154 @@
 const accordion = document.getElementById('accordions');
 const addBtn = document.getElementById('addBtn');
 const editModal = document.getElementById('editModal');
-const deleteModal = document.getElementById('deleteModal');
-const saveBtn = document.getElementById('saveBtn');
 const cancelBtn = document.getElementById('cancelBtn');
-const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
 const questionInput = document.getElementById('questionInput');
 const answerInput = document.getElementById('answerInput');
 const modalTitle = document.getElementById('modalTitle');
+const saveBtn = document.getElementById('saveBtn');
 
 let posts = [];
 let editingId = null;
-let deletingId = null;
+
 window.addEventListener('DOMContentLoaded', () => {
   getPosts();
 });
-function toggleAnswer(element) {
-  const answerDiv = element.nextElementSibling;
-  answerDiv.classList.toggle('show');
+
+addBtn.addEventListener('click', () => {
+  editModal.style.display = 'flex';
+  modalTitle.textContent = "Savol qo'shish";
+  saveBtn.textContent = 'Saqlash';
+  questionInput.value = '';
+  answerInput.value = '';
+  editingId = null;
+});
+
+cancelBtn.addEventListener('click', () => {
+  editModal.style.display = 'none';
+  questionInput.value = '';
+  answerInput.value = '';
+  editingId = null;
+});
+
+function toggleAnswer(el) {
+  const body = el.nextElementSibling;
+  el.classList.toggle('active');
+  body.classList.toggle('show');
 }
+
+async function addPost() {
+  let newPost = {
+    question: questionInput.value,
+    answer: answerInput.value,
+  };
+  try {
+    if (!editingId) {
+      let res = await fetch('https://faq-crud.onrender.com/api/faqs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPost),
+      });
+      if (res.ok) {
+        questionInput.value = '';
+        answerInput.value = '';
+        editModal.style.display = 'none';
+        alert('muvaffaqiyatli');
+        getPosts();
+      }
+    } else {
+      let res = await fetch(
+        `https://faq-crud.onrender.com/api/faqs/${editingId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newPost),
+        }
+      );
+      if (res.ok) {
+        questionInput.value = '';
+        answerInput.value = '';
+        editModal.style.display = 'none';
+        alert('muvaffaqiyatli');
+        saveBtn.textContent = 'Saqlash';
+        getPosts();
+        editingId = null;
+      }
+    }
+  } catch (error) {
+    alert('Olishda muammo yuzaga keldi');
+  }
+}
+
+saveBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  addPost();
+});
+
+async function deletePost(id) {
+  try {
+    if (confirm('uchirasizmi')) {
+      let del = await fetch(`https://faq-crud.onrender.com/api/faqs/${id}`, {
+        method: 'DELETE',
+      });
+      if (del.ok) {
+        alert('DELETE success');
+        getPosts();
+      }
+    }
+  } catch (error) {
+    alert('uchirish qilishda muammo yuzaga keldi...');
+  }
+}
+
+function editPost(id) {
+  editingId = id;
+  let m = posts.find((d) => d.id === id);
+  questionInput.value = m.question;
+  answerInput.value = m.answer;
+  editModal.style.display = 'flex';
+  modalTitle.textContent = 'Savolni tahrirlash';
+  saveBtn.textContent = 'Yangilash';
+}
+
 async function getPosts() {
-  const res = await fetch('https://faq-crud.onrender.com/api/faqs');
-  const { data } = await res.json();
+  let res = await fetch('https://faq-crud.onrender.com/api/faqs');
+  let { data } = await res.json();
   posts = data;
   render();
 }
+
 function render() {
+  if (!posts.length) {
+    accordion.innerHTML = `
+      <div class="empty-message">Ma'lumot yo'q 😕</div>
+    `;
+    return;
+  }
+
   accordion.innerHTML = posts
     .map((post) => {
       return `
-      <div>
+      <div class="faq-item">
         <div class="question" onclick="toggleAnswer(this)">
           <h1>${post.question}</h1>
           <div class="btn-group">
+            <button class="edit-btn" onclick="editPost(${post.id})">Tahrirlash</button>
+            <button class="delete-btn" onclick="deletePost(${post.id})">O'chirish</button>
           </div>
         </div>
         <div class="answer">
           <h1>${post.answer}</h1>
-          <div class = 'btns'>
-  <button>O'chirish</button>
-  <button>Tahrirlash</button>
-</div>
         </div>
       </div>
     `;
     })
     .join('');
 }
-function escapeHtml(text) {
-  return text.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
-}
-addBtn.addEventListener('click', () => {
-  editingId = null;
-  modalTitle.textContent = "Savol qo'shish";
-  questionInput.value = '';
-  answerInput.value = '';
-  editModal.style.display = 'flex';
-});
 
-saveBtn.addEventListener('click', async () => {
-  const title = questionInput.value.trim();
-  const content = answerInput.value.trim();
-  if (!title && !content) {
-    alert("Iltimos, barcha maydonlarni to'ldiring!");
-    return;
-  }
-  try {
-    let response;
-  } catch {
-    console.log(error.message);
-  }
-  if (editingId) {
-    response = await fetch(
-      'https://faq-crud.onrender.com/api/faqs${editingId}',
-      {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, content }),
-      }
-    );
-  } else {
-    response = await fetch('https://faq-crud.onrender.com/api/faqs', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, content }),
-    });
-  }
-});
-cancelBtn.addEventListener('click', () => {
-  editModal.style.display = 'none';
-});
-// ustoz quldan kelgani shu buldi juda kup xato chiqdi aniqlolmadim
+window.toggleAnswer = toggleAnswer;
+window.editPost = editPost;
+window.deletePost = deletePost;
