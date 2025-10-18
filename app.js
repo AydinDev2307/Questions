@@ -90,7 +90,7 @@ saveBtn.addEventListener('click', (e) => {
 
 async function deletePost(id) {
   try {
-    if (confirm('uchirasizmi')) {
+    if (confirm('Tasdiqlaysizmi?')) {
       let del = await fetch(`https://faq-crud.onrender.com/api/faqs/${id}`, {
         method: 'DELETE',
       });
