@@ -124,7 +124,7 @@ async function getPosts() {
 function render() {
   if (!posts.length) {
     accordion.innerHTML = `
-      <div class="empty-message">Ma'lumot yo'q 😕</div>
+      <div class="empty-message">Ma'lumot yo'q</div>
     `;
     return;
   }
