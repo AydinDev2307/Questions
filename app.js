@@ -95,7 +95,7 @@ async function deletePost(id) {
         method: 'DELETE',
       });
       if (del.ok) {
-        alert('DELETE success');
+        alert('muvaffaqiyatli');
         getPosts();
       }
     }
